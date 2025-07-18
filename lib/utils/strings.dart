@@ -1,0 +1,12 @@
+const GST_Calcculator="GST Calcculator";
+const Initial_Amount="Initial Amount";
+const Rate_of_GST="Rate of GST(%)";
+const Add_GST="Add GST +";
+const Remove_GST="Remove GST -";
+const Calculate_GST="CALCULATE GST";
+const Net_Amount="Net Amount:";
+const GST_Amount="GST Amount:";
+const Total_Amount="Total Amount:";
+const Share_Screenshot="Share Screenshot";
+const Save_Calculation="Save Calculation";
+const News_Updates = "News & updates";
