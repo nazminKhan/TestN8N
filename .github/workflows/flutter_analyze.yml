@@ -3,7 +3,7 @@ name: Flutter Analyze & Report
 on:
   push:
     branches:
-      - main  # Replace with your actual branch if different
+      - main  # change if your branch is different
 
 jobs:
   analyze:
@@ -16,7 +16,10 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'  # Or whatever version you're using
+          flutter-version: '3.19.0'  # adjust as needed
+
+      - name: Debug Flutter Setup
+        run: flutter doctor -v
 
       - name: Install Dependencies
         run: flutter pub get
