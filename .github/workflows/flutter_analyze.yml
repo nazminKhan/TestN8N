@@ -16,7 +16,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'  # adjust as needed
+          flutter-version: '3.22.1'  # adjust as needed
 
       - name: Debug Flutter Setup
         run: flutter doctor -v
