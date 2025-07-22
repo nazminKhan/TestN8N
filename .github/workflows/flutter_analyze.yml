@@ -1,9 +1,9 @@
-name: Flutter Analyze & Report
+name: Flutter Analyze Reporter
 
 on:
   push:
     branches:
-      - main  # change if your branch is different
+      - main
 
 jobs:
   analyze:
@@ -13,22 +13,54 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.7'  # adjust as needed
+          flutter-version: '3.19.0'
 
-      - name: Debug Flutter Setup
-        run: flutter doctor -v
+      - name: Run Flutter Analyze
+        run: flutter analyze > flutter-report.txt
 
-      - name: Install Dependencies
-        run: flutter pub get
-
-      - name: Run flutter analyze
-        run: flutter analyze > flutter-report.txt || true
-
-      - name: Send Report to n8n Webhook
+      - name: Commit flutter-report.txt
         run: |
-          curl -X POST https://n8n-automation-secure.appaspect.com/webhook/flutter-analyze \
-          -H "Content-Type: text/plain" \
-          --data-binary @flutter-report.txt
+          git config --global user.email "github-bot@appaspect.com"
+          git config --global user.name "GitHub Bot"
+          git add flutter-report.txt
+          git commit -m "Update flutter analysis report" || echo "No changes"
+          git push
+
+
+# name: Flutter Analyze & Report
+
+# on:
+#   push:
+#     branches:
+#       - main  # change if your branch is different
+
+# jobs:
+#   analyze:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v3
+
+#       - name: Setup Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           flutter-version: '3.32.7'  # adjust as needed
+
+#       - name: Debug Flutter Setup
+#         run: flutter doctor -v
+
+#       - name: Install Dependencies
+#         run: flutter pub get
+
+#       - name: Run flutter analyze
+#         run: flutter analyze > flutter-report.txt || true
+
+#       - name: Send Report to n8n Webhook
+#         run: |
+#           curl -X POST https://n8n-automation-secure.appaspect.com/webhook/flutter-analyze \
+#           -H "Content-Type: text/plain" \
+#           --data-binary @flutter-report.txt
