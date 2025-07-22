@@ -29,6 +29,6 @@ jobs:
 
       - name: Send Report to n8n Webhook
         run: |
-          curl -X POST https://n8n-automation-secure.appaspect.com/webhook-test/flutter-analyze \
+          curl -X POST https://n8n-automation-secure.appaspect.com/webhook/flutter-analyze \
           -H "Content-Type: text/plain" \
           --data-binary @flutter-report.txt
