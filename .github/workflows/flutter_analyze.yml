@@ -3,7 +3,7 @@ name: Flutter Analyze Reporter
 on:
   push:
     branches:
-      - main
+      - main  # Change if you're using another branch
 
 jobs:
   analyze:
@@ -16,18 +16,22 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.7'
+          flutter-version: '3.32.7'  # Adjust as needed
 
       - name: Run Flutter Analyze
-        run: flutter analyze > flutter-report.txt
+        run: |
+          flutter analyze > flutter-report.txt || true
+          echo "==== FLUTTER ANALYSIS COMPLETE ===="
+          cat flutter-report.txt
 
       - name: Commit flutter-report.txt
         run: |
           git config --global user.email "github-bot@appaspect.com"
           git config --global user.name "GitHub Bot"
           git add flutter-report.txt
-          git commit -m "Update flutter analysis report" || echo "No changes"
+          git commit -m "Update flutter analysis report" || echo "No changes to commit"
           git push
+
 
 
 # name: Flutter Analyze & Report
