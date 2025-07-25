@@ -1,4 +1,4 @@
-name: Flutter Analyze Reporter
+name: Flutter Analyze Party 🎯
 
 on:
   push:
@@ -13,21 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: 🧙‍♂️ Checkout the Magic Code
         uses: actions/checkout@v3
 
-      - name: Install Flutter
+      - name: 🐦 Summon Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.7'
 
-      - name: Run Flutter Analyze
+      - name: 🧹 Analyze with Flutter's Wisdom
         run: |
           flutter analyze > flutter-report.txt || true
-          echo "==== FLUTTER ANALYSIS COMPLETE ===="
+          echo "✨✨✨ Flutter has spoken ✨✨✨"
           cat flutter-report.txt
 
-      - name: Commit flutter-report.txt
+      - name: 📦 Commit the Scroll of Warnings
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -35,22 +35,30 @@ jobs:
           git config --global user.name "GitHub Bot"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add flutter-report.txt
-          git commit -m "Update flutter analysis report" || echo "No changes to commit"
+          git commit -m "📜 Updated the sacred Flutter analysis scroll" || echo "Nothing new to chant"
           git push
 
-      - name: Send Email Notification via SendGrid
+      - name: 📧 Owl Post (SendGrid Email)
         if: success()
-        uses: peter-evans/sendgrid-email@v1
-        with:
-          sendgrid-api-key: ${{ secrets.SENDGRID_API_KEY }}
-          to: user@example.com
-          from: github-bot@appaspect.com
-          subject: Flutter Analyze Report - Success
-          body: |
-            ✅ Flutter analysis completed successfully.
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          curl --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer $SENDGRID_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "personalizations": [{
+                "to": [{"email": "user@example.com"}],
+                "subject": "🎉 Flutter Analyze Report – Success!"
+              }],
+              "from": {"email": "github-bot@appaspect.com"},
+              "content": [{
+                "type": "text/plain",
+                "value": "🛠️ The Flutter gods have finished analyzing your code.\n\n📄 View the sacred scroll: https://github.com/${{ github.repository }}/blob/main/flutter-report.txt\n\n🧘‍♂️ Namaste!"
+              }]
+            }'
 
-            You can view the latest report here:
-            https://github.com/${{ github.repository }}/blob/main/flutter-report.txt
 
 
 
