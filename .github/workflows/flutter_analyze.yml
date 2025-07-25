@@ -45,7 +45,7 @@ jobs:
         run: |
           curl --request POST \
             --url https://api.sendgrid.com/v3/mail/send \
-            --header "Authorization: Bearer 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" \
+            --header "Authorization: Bearer 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" \
             --header "Content-Type: application/json" \
             --data '{
               "personalizations": [{
