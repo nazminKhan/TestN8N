@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: write  # ✅ Required to allow pushing code back
+  contents: write
 
 jobs:
   analyze:
@@ -37,6 +37,21 @@ jobs:
           git add flutter-report.txt
           git commit -m "Update flutter analysis report" || echo "No changes to commit"
           git push
+
+      - name: Send Email Notification via SendGrid
+        if: success()
+        uses: peter-evans/sendgrid-email@v1
+        with:
+          sendgrid-api-key: ${{ secrets.SENDGRID_API_KEY }}
+          to: user@example.com
+          from: github-bot@appaspect.com
+          subject: Flutter Analyze Report - Success
+          body: |
+            ✅ Flutter analysis completed successfully.
+
+            You can view the latest report here:
+            https://github.com/${{ github.repository }}/blob/main/flutter-report.txt
+
 
 
 
