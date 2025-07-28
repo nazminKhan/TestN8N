@@ -33,31 +33,32 @@ jobs:
         run: |
           git config --global user.email "github-bot@appaspect.com"
           git config --global user.name "GitHub Bot"
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add flutter-report.txt
-          git commit -m "📜 Updated the sacred Flutter analysis scroll" || echo "Nothing new to chant"
+          git diff --cached --quiet || git commit -m "📜 Updated the sacred Flutter analysis scroll"
           git push
 
       - name: 📧 Owl Post (SendGrid Email)
-        if: success()
+        if: ${{ success() }}
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-          curl --request POST \
-            --url https://api.sendgrid.com/v3/mail/send \
+          curl --location 'https://api.sendgrid.com/v3/mail/send' \
+            --header 'Content-Type: application/json' \
             --header "Authorization: Bearer $SENDGRID_API_KEY" \
-            --header "Content-Type: application/json" \
-            --data '{
+            --data-raw '{
               "personalizations": [{
-                "to": [{"email": "nazmin.khan@appaspect.com"}],
-                "subject": "🎉 Flutter Analyze Report – Success!"
+                "to": [{ "email": "user@example.com" }]
               }],
-              "from": {"email": "nazmin.khan@appaspect.com"},
+              "from": { "email": "nazmin.khan@appaspect.com" },
+              "subject": "🎉 Flutter Analyze Report – Success!",
               "content": [{
                 "type": "text/plain",
                 "value": "🛠️ The Flutter gods have finished analyzing your code.\n\n📄 View the sacred scroll: https://github.com/${{ github.repository }}/blob/main/flutter-report.txt\n\n🧘‍♂️ Namaste!"
               }]
             }'
+
+ 
 
 
 
