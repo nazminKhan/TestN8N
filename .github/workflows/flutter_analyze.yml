@@ -49,10 +49,10 @@ jobs:
             --header "Content-Type: application/json" \
             --data '{
               "personalizations": [{
-                "to": [{"email": "user@example.com"}],
+                "to": [{"email": "nazmin.khan@appaspect.com"}],
                 "subject": "🎉 Flutter Analyze Report – Success!"
               }],
-              "from": {"email": "github-bot@appaspect.com"},
+              "from": {"email": "nazmin.khan@appaspect.com"},
               "content": [{
                 "type": "text/plain",
                 "value": "🛠️ The Flutter gods have finished analyzing your code.\n\n📄 View the sacred scroll: https://github.com/${{ github.repository }}/blob/main/flutter-report.txt\n\n🧘‍♂️ Namaste!"
