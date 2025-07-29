@@ -43,6 +43,7 @@ jobs:
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
+          echo "Key length: ${#SENDGRID_API_KEY}"
           curl --location 'https://api.sendgrid.com/v3/mail/send' \
             --header 'Content-Type: application/json' \
             --header "Authorization: Bearer $SENDGRID_API_KEY" \
