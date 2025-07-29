@@ -46,7 +46,7 @@ jobs:
           echo "Key length: ${#MY_KEY}"
           curl --location 'https://api.sendgrid.com/v3/mail/send' \
             --header 'Content-Type: application/json' \
-            --header "Authorization: Bearer $MY_KEY" \
+            --header "Authorization: Bearer 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" \
             --data-raw '{
               "personalizations": [{
                 "to": [{ "email": "nazmin.khan@appaspect.com" }]
