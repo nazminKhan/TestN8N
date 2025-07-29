@@ -41,12 +41,12 @@ jobs:
       - name: 📧 Owl Post (SendGrid Email)
         if: ${{ success() }}
         env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          MY_KEY: ${{ secrets.MY_KEY }}
         run: |
-          echo "Key length: ${#SENDGRID_API_KEY}"
+          echo "Key length: ${#MY_KEY}"
           curl --location 'https://api.sendgrid.com/v3/mail/send' \
             --header 'Content-Type: application/json' \
-            --header "Authorization: Bearer $SENDGRID_API_KEY" \
+            --header "Authorization: Bearer $MY_KEY" \
             --data-raw '{
               "personalizations": [{
                 "to": [{ "email": "nazmin.khan@appaspect.com" }]
