@@ -43,6 +43,7 @@ jobs:
         env:
           MY_KEY: ${{ vars.MY_KEY }}
         run: |
+         - run: echo "Key length: ${MY_KEY}"
           echo "Key length: ${#MY_KEY}"
           curl --location 'https://api.sendgrid.com/v3/mail/send' \
             --header 'Content-Type: application/json' \
