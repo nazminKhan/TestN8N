@@ -48,7 +48,7 @@ jobs:
             --header "Authorization: Bearer $SENDGRID_API_KEY" \
             --data-raw '{
               "personalizations": [{
-                "to": [{ "email": "user@example.com" }]
+                "to": [{ "email": "nazmin.khan@appaspect.com" }]
               }],
               "from": { "email": "nazmin.khan@appaspect.com" },
               "subject": "🎉 Flutter Analyze Report – Success!",
