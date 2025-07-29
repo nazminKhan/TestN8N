@@ -41,7 +41,7 @@ jobs:
       - name: 📧 Owl Post (SendGrid Email)
         if: ${{ success() }}
         env:
-          MY_KEY: ${{ secrets.MY_KEY }}
+          MY_KEY: ${{ vars.MY_KEY }}
         run: |
           echo "Key length: ${#MY_KEY}"
           curl --location 'https://api.sendgrid.com/v3/mail/send' \
